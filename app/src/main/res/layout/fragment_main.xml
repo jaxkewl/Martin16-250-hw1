@@ -39,6 +39,7 @@
     <Button
         android:id="@+id/button_submit"
         android:text="Submit"
+        android:background="@drawable/nine_patch_two_button_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
