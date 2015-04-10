@@ -3,7 +3,6 @@ package com.marshong.martin16_250_hw1;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,13 +68,13 @@ public class Screen2 extends ActionBarActivity {
             mPassword = (TextView) rootView.findViewById(R.id.text_view_password);
             mEmail = (TextView) rootView.findViewById(R.id.text_view_email);
 
+            //get the email and password from the bundle
             Bundle bundle = getActivity().getIntent().getExtras();
-
             String password = bundle.getString(MainActivity.MainFragment.extraPassword);
             String email = bundle.getString(MainActivity.MainFragment.extraEmail);
 
-            Log.d(TAG, "email: " + email);
-            Log.d(TAG, "password: " + password);
+            //Log.d(TAG, "email: " + email);
+            //Log.d(TAG, "password: " + password);
 
             mPassword.setText(password);
             mEmail.setText(email);

@@ -1,10 +1,10 @@
 package com.marshong.martin16_250_hw1;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,6 +74,9 @@ public class MainActivity extends ActionBarActivity {
         EditText mEmailEditText;
         EditText mPasswordEditText;
 
+        //image source
+        ImageView mImageViewLogo;
+
         public MainFragment() {
         }
 
@@ -97,6 +104,19 @@ public class MainActivity extends ActionBarActivity {
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
+
+            // get the image asset from the assets folder
+            mImageViewLogo = (ImageView) rootView.findViewById(R.id.image_src_logo);
+            try {
+                InputStream logoStream = getActivity().getAssets().open("logo-NOLOGO.png");
+                Drawable drawableLogo = Drawable.createFromStream(logoStream, null);
+                mImageViewLogo.setImageDrawable(drawableLogo);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(getActivity(), "Logo missing ", Toast.LENGTH_SHORT).show();
+            }
+
+            //setup the edit text and button
             mPasswordEditText = (EditText) rootView.findViewById(R.id.edit_text_password);
             mEmailEditText = (EditText) rootView.findViewById(R.id.edit_text_email);
 
@@ -104,12 +124,13 @@ public class MainActivity extends ActionBarActivity {
             mSubmitButton.setOnClickListener(new View.OnClickListener() {
                                                  @Override
                                                  public void onClick(View v) {
+                                                     //before submitting the information, validate the password and email address
 
                                                      String password = mPasswordEditText.getText().toString();
                                                      String email = mEmailEditText.getText().toString();
 
-                                                     Log.d(TAG,"email: " + email);
-                                                     Log.d(TAG,"password: " + password);
+                                                     //Log.d(TAG, "email: " + email);
+                                                     //Log.d(TAG, "password: " + password);
 
                                                      boolean validEmail = isValidEmail(email);
                                                      boolean validPass = isValidPassword(password);
